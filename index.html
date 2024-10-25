@@ -1,0 +1,144 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tài Xỉu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Game Tài Xỉu Chơi Thử </h1>
+        <p>Chọn Tài (Chẵn) hoặc Xỉu (Lẻ) để chơi:</p>
+
+        <div class="button-container">
+            <button class="button tai" onclick="playGame('tai')">Tài</button>
+            <button class="button xiu" onclick="playGame('xiu')">Xỉu</button>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+    <div class="game-container">
+        <h1>Game Tài Xỉu</h1>
+        <p>Chọn Tài (Chẵn) hoặc Xỉu (Lẻ) để chơi:</p>
+
+        <div class="button-container">
+            <button class="button tai" onclick="playGame1('tai')">Tài</button>
+            <button class="button xiu" onclick="playGame1('xiu')">Xỉu</button>
+        </div>
+
+        <div class="result" id="result1"></div>
+    </div>
+
+    <script>
+        function playGame(choice) {
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            const isEven = randomNumber % 2 === 0;
+            
+            let resultMessage = `Kết quả là ${randomNumber}: `;
+            if ((choice === 'tai' && isEven) || (choice === 'xiu' && !isEven)) {
+                resultMessage += "Bạn thắng! +200";
+            } else {
+                resultMessage += "Bạn thua! + 200";
+            }
+
+            document.getElementById('result').textContent = resultMessage;
+        }
+        function playGame1(choice) {
+            // Sinh số ngẫu nhiên từ 1 đến 6
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            const isEven = randomNumber % 2 === 0;
+            
+            // Khởi tạo thông báo kết quả
+            let resultMessage = `Kết quả là ${randomNumber}: `;
+            
+            // Xác định kết quả thắng/thua
+            if ((choice === 'tai' && isEven) || (choice === 'xiu' && !isEven)) {
+                resultMessage += "Bạn thắng!";
+            } else {
+                resultMessage += "Bạn thua!";
+            }
+
+            // Ghi kết quả vào phần tử HTML có id là 'result1'
+            document.getElementById('result1').textContent = resultMessage;
+        }
+    </script>
+    
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tài Xỉu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Game Tài Xỉu</h1>
+        <p>Chọn Tài (Chẵn) hoặc Xỉu (Lẻ) để chơi:</p>
+
+        <!-- Hiển thị số tiền hiện có của người chơi -->
+        <div class="balance-container">
+            <p>Số dư: <span id="balance">1000</span> VND</p>
+        </div>
+
+        <!-- Nhập số tiền cược -->
+        <div class="bet-container">
+            <label for="bet">Đặt cược: </label>
+            <input type="number" id="bet" min="1" placeholder="Nhập số tiền cược">
+        </div>
+
+        <div class="button-container">
+            <button class="button tai" onclick="playGame1('tai')">Tài</button>
+            <button class="button xiu" onclick="playGame1('xiu')">Xỉu</button>
+        </div>
+        <div>
+            <button class="button xiu">NẠP TIỀN</button>
+        </div> 
+
+        <div class="result" id="result1"></div>
+    </div>
+
+    <script>
+        // Khởi tạo số dư ban đầu
+        let balance = 1000;
+
+        function playGame1(choice) {
+            // Lấy số tiền cược từ người chơi
+            const bet = parseInt(document.getElementById('bet').value);
+            
+            // Kiểm tra nếu số tiền cược hợp lệ và không vượt quá số dư
+            if (isNaN(bet) || bet <= 0) {
+                document.getElementById('result1').textContent = "Vui lòng nhập số tiền cược hợp lệ!";
+                return;
+            } else if (bet > balance) {
+                document.getElementById('result1').textContent = "Số dư không đủ!";
+                return;
+            }
+
+            // Sinh số ngẫu nhiên từ 1 đến 6
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            const isEven = randomNumber % 2 === 0;
+
+            // Khởi tạo thông báo kết quả
+            let resultMessage = `Kết quả là ${randomNumber}: `;
+            
+            // Xác định kết quả thắng/thua và cập nhật số dư
+            if ((choice === 'tai' && isEven) || (choice === 'xiu' && !isEven)) {
+                balance += bet;  // Thắng, cộng tiền
+                resultMessage += "Bạn thắng!";
+            } else {
+                balance -= bet;  // Thua, trừ tiền
+                resultMessage += "Bạn thua!";
+            }
+
+            // Cập nhật số dư và kết quả
+            document.getElementById('balance').textContent = balance;
+            document.getElementById('result1').textContent = resultMessage;
+        }
+    </script>
+</body>
+</html>
+
